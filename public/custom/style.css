@@ -1,0 +1,287 @@
+.navbar{
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+    background-color: #1B3D9F !important;
+    border-bottom: 1px solid #1B3D9F !important;
+}
+
+.navbar-brand{
+    font-weight: bold;
+    letter-spacing: 0.06rem;
+    font-size: 1.5em;
+}
+
+.nav-item .text-light{
+    color: #b8b8b8 !important;
+}
+
+.nav-item a:hover{
+    color: #fff !important;
+}
+
+.nav-item.active a{
+    color: #fff !important;
+}
+
+.img-icon{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #dadada;
+    border: 1px solid #fff;
+}
+
+.dropdown .btn{
+    background-color: transparent !important;
+    border: none !important;
+    width: 30px;
+    height: 30px;
+}
+
+.dropdown-menu{
+    min-width: 8rem !important;
+}
+
+.dropdown-menu[data-bs-popper]{
+    margin-top: 1.5rem !important;
+    left: -5.5rem !important;
+}
+
+.nav2{
+    background-color: #0165B9;
+}
+
+.nav2 .home.active,
+.nav2 .new_folder.active,
+.nav2 .upload-file.active{
+    border-bottom: 5px solid #051e69;
+    margin-bottom: 1px;
+}
+
+.home.active a, .home a, 
+.home.active i, .home i, 
+.new_folder.active a, .new_folder a, 
+.new_folder.active i, .new_folder i, 
+.upload-file.active a, .upload-file a,
+.upload-file.active i, .upload-file i{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.01em;
+}
+
+.breadcrumb li:last-child a{
+    /* color: #302f2f !important; */
+    margin-left: 0px !important;
+}
+
+.breadcrumb li a, 
+.breadcrumb li a i{
+    color: #302f2f !important;
+} 
+
+.breadcrumb li:last-child::before,
+.breadcrumb li:last-child::after{
+    display: none;
+} 
+
+.breadcrumb li::after{
+    content: "/";
+    font-weight: bold;
+} 
+
+.breadcrumb li a, 
+.breadcrumb li a i,
+.breadcrumb li.last a,
+.breadcrumb li span{
+    font-size: 1.1em !important;
+    font-weight: 500 !important;
+    text-decoration: none;
+}
+
+.breadcrumb li a:hover,
+.breadcrumb li span:hover{
+    color: #0165B9 !important;
+    text-decoration: underline;
+}
+
+.folder-lists{
+    position: relative;
+    z-index: 1;
+}
+
+.folder-lists ul li, .file-lists ul li{
+    list-style: none;
+}
+
+.folder-lists ul li div, .file-lists ul li div{
+    position: relative;
+}
+
+.folder-lists ul li:nth-child(1) .folder:before,
+.file-lists ul li:nth-child(1) .file:before{
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    left: -1.6rem;
+    height: 45px;
+    width: 25px;
+    border-bottom-left-radius: 10px;
+    border-left: 2px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.folder-lists ul li:not(:nth-child(1)) .folder:before,
+.file-lists ul li:not(:nth-child(1)) .file:before{
+    content: "";
+    position: absolute;
+    top: -5rem;
+    left: -1.6rem;
+    height: 110px;
+    width: 25px;
+    border-bottom-left-radius: 10px;
+    border-left: 2px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+    z-index: 3;
+}
+
+@media  screen and (max-width: 409px) {
+    .folder-lists ul li:not(:nth-child(1)) .folder:before,
+    .file-lists ul li:not(:nth-child(1)) .file:before{
+        top: -6rem;
+        height: 130px;
+    }
+}
+
+@media  screen and (max-width: 409px) {
+    .folder-lists ul li:not(:nth-child(1)) .folder:before,
+    .file-lists ul li:not(:nth-child(1)) .file:before{
+        top: -9rem;
+        height: 190px;
+    }
+}
+
+.folder-lists ul li div a,
+.file-lists ul li div a{
+    font-size: 1.05em;
+    text-decoration: none;
+    color: #1a1a1a;
+}
+
+.files h5,
+.folders h5{
+    font-weight: 400 !important;
+}
+
+.folder{
+    position: relative;
+    z-index: 1;
+}
+
+.folder-editDelete-menu ul,
+.file-editDelete-menu ul{
+    margin-left: 0 !important;
+    display: none;
+}
+
+.folder-editDelete-menu ul li,
+.file-editDelete-menu ul li{
+    list-style: none;
+    display: inline-block;
+}
+
+.folder-editDelete-menu ul li:last-child a,
+.file-editDelete-menu ul li:last-child a{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.is-selected .folder-editDelete-menu ul,
+.is-selected .file-editDelete-menu ul{
+    display: block;
+}
+
+.floating-icon{
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color: #0165B9;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.3s ease;
+    font-size: 1.5em;
+    padding: 0.95rem 0.95rem;
+}
+
+.floating-menu{
+    position: fixed;
+    bottom: 7rem;
+    right: 1.5rem;
+    padding: 0.8rem 1rem 0rem 0rem;
+    border-radius: 5px;
+    background-color: #fff;
+    display: none;
+    transition: display 0.3s ease;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.floating-menu ul{
+    float: left;
+    position: relative;
+    left: -0.5rem;
+}
+
+.floating-menu ul li{
+    list-style: none;
+}
+
+.floating-menu ul li a{
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.show-floating-menu{
+    transition: transform 0.3s ease;
+    transform: rotate(-135deg);
+}
+
+.show-floating-menu ~ .floating-menu{
+    transition: display 0.3s ease;
+    display: block;
+}
+
+input[type="file"]{
+    position: relative;
+    font-size: 1.1em;
+    z-index: 2;
+}
+
+input[type="file"]::before{
+    content: "Browse...";
+    position: absolute;
+    top: 0rem;
+    left: 0;
+    height: 48px;
+    width: 105px;
+    background-color: #6b6a6a;
+    border: 1px solid #585858;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    color: #fff;
+    margin-right: 20px;
+    z-index: 3;
+}
+
+button[type='submit'],
+input[type='text']{
+    height: 48px !important;
+}
+
+.border-secondary{
+    border: 1px solid #8b959c !important;
+}

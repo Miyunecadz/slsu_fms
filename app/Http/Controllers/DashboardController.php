@@ -11,35 +11,23 @@ class DashboardController extends Controller
     private $root = 'public/';
     public function index(Request $request)
     {
-        $dirToFind = $request->dir;
-        if (!$request->dir) {
-            $dirToFind = $this->root . $request->dir;
-        }
-
-        $sections = explode("/", $dirToFind);
-        array_splice($sections, 0, 1);
-        // dd($sections);
-
-        $urls = [];
-        $currenValue = "";
-        foreach ($sections as $section) {
-
-            array_push($urls, $currenValue . $section . "/");
-            $currenValue = $currenValue . $section . "/";
-        }
-
+        $dirToFind = $this->dirToFind($request);
+        $dir = $this->sections($dirToFind);
 
         $dirs = Storage::directories($dirToFind);
         $files = Storage::files($dirToFind);
         return view('dashboard', ['datas' => [
-            'sections' => $sections,
-            'urls' => $urls
+            'sections' => $dir['sections'],
+            'urls' => $dir['urls']
         ],  'dirs' => $dirs, 'files' => $files]);
     }
 
     public function newFolder(Request $request)
     {
-        return view('newfolder', ['dir' => $request->dir]);
+        $dirToFind = $this->dirToFind($request);
+        $dir = $this->sections($dirToFind);
+
+        return view('newfolder', ['dir' => $request->dir, 'datas'=>['sections' => $dir['sections'], 'urls' => $dir['urls']]]);
     }
 
     public function createFolder(Request $request)
@@ -50,12 +38,41 @@ class DashboardController extends Controller
 
     public function uploadFile(Request $request)
     {
-        return view('upload', ['dir' => $request->dir]);
+        $dirToFind = $this->dirToFind($request);
+        $dir = $this->sections($dirToFind);
+
+        return view('upload', ['dir' => $request->dir, 'datas'=>['sections' => $dir['sections'], 'urls' => $dir['urls']]]);
     }
 
     public function upload(Request $request)
     {
         $request->file('file')->storeAs($request->dir, $request->file('file')->getClientOriginalName());
         return redirect(route('dashboard', ['dir' => $request->dir]));
+    }
+
+    public function sections($dirToFind)
+    {
+        $sections = explode("/", $dirToFind);
+        array_splice($sections, 0, 1);
+
+        $urls = [];
+        $currenValue = "";
+        foreach ($sections as $section) {
+
+            array_push($urls, $currenValue . $section . "");
+            $currenValue = $currenValue . $section . "/";
+        }
+
+        return ['sections' => $sections, 'urls' => $urls];
+    }
+
+    public function dirToFind($request)
+    {
+        $dirToFind = $request->dir;
+        if (!$request->dir) {
+            $dirToFind = $this->root . $request->dir;
+        }
+
+        return $dirToFind;
     }
 }
