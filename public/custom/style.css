@@ -230,6 +230,7 @@
     transition: transform 0.3s ease;
     font-size: 1.5em;
     padding: 0.95rem 0.95rem;
+    z-index: 1000;
 }
 
 .floating-menu{
@@ -242,16 +243,18 @@
     display: none;
     transition: display 0.3s ease;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }
 
 .floating-menu ul{
+    background-color: #fff;
     float: left;
-    position: relative;
-    left: -0.5rem;
 }
 
 .floating-menu ul li{
     list-style: none;
+    position: relative;
+    left: -0.5rem;
 }
 
 .floating-menu ul li a{
@@ -298,7 +301,6 @@ input[type="file"]::before{
 button[type='submit'],
 input[type='text'],
 input[type='password']{
-    /* height: 48px !important; */
     border-radius: 10px;
 }
 
