@@ -11,6 +11,14 @@
     font-size: 1.5em;
 }
 
+.login .navbar-brand{
+    /* font-weight:  normal !important; */
+    font-size: 1.3em !important;
+    font-family: "Lucida Bright", Arial, Helvetica, sans-serif;
+    color: #e7e7e7 !important;
+    letter-spacing: 0.1rem !important;
+}
+
 .nav-item .text-light{
     color: #b8b8b8 !important;
 }
@@ -200,6 +208,11 @@
     display: block;
 }
 
+.folder-close:hover,
+.file-close:hover{
+    cursor: pointer;
+}
+
 .floating-icon{
     position: fixed;
     bottom: 1.5rem;
@@ -284,4 +297,16 @@ input[type='text']{
 
 .border-secondary{
     border: 1px solid #8b959c !important;
+}
+
+.login-btn{
+    height: 48px;
+    background-color: #0165B9;
+    border: 1px solid #025ea8;
+    letter-spacing: 0.07rem;
+    font-weight: 500;
+}
+
+.footer{
+    letter-spacing: 0.04rem;
 }
