@@ -213,6 +213,10 @@
     cursor: pointer;
 }
 
+.folder, .file{
+    border-radius: 10px !important;
+}
+
 .floating-icon{
     position: fixed;
     bottom: 1.5rem;
@@ -268,6 +272,7 @@
 input[type="file"]{
     position: relative;
     font-size: 1.1em;
+    padding-left: 11px;
     z-index: 2;
 }
 
@@ -275,12 +280,12 @@ input[type="file"]::before{
     content: "Browse...";
     position: absolute;
     top: 0rem;
-    left: 0;
+    left: 0rem;
     height: 48px;
-    width: 105px;
+    border-radius: 10px !important;
+    width: 7.41rem;
     background-color: #6b6a6a;
     border: 1px solid #585858;
-    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -291,20 +296,25 @@ input[type="file"]::before{
 }
 
 button[type='submit'],
-input[type='text']{
-    height: 48px !important;
+input[type='text'],
+input[type='password']{
+    /* height: 48px !important; */
+    border-radius: 10px;
 }
 
 .border-secondary{
     border: 1px solid #8b959c !important;
 }
 
-.login-btn{
-    height: 48px;
+.login-btn,
+.create-folder,
+.create-file{
+    height: 48px !important;
     background-color: #0165B9;
     border: 1px solid #025ea8;
     letter-spacing: 0.07rem;
     font-weight: 500;
+    border-radius: 10px;
 }
 
 .footer{

@@ -39,9 +39,7 @@
                         <div class="dropdown">
                             <div class="btn btn-danger dropdown-toggle ms-1" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></div>
                             <ul class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Sign-out</a></li>
-                                <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                                <li><a class="dropdown-item" href="{{route('login')}}">Sign-out</a></li>
                             </ul>
                         </div>
                     </div>
@@ -92,14 +90,14 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <form action="{{route('upload.file')}}" method="post" enctype="multipart/form-data" class="mt-3">
+                <form action="{{route('upload.file')}}" method="post" enctype="multipart/form-data" class="mt-3 px-3">
                     @csrf
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="file">Choose file from your directory</label>
                         <input type="hidden" name="dir" value="{{$dir}}">
-                        <input type="file" class="py-2 w-100 mt-2" name="file" id="file" >
+                        <input type="file" class="py-2 w-100 mt-3 mb-1" name="file" id="file" >
                     </div>
-                    <button class="btn btn-primary mt-4" type="submit"><i class="fas fa-upload me-1"></i> Upload</button>
+                    <button class="btn btn-primary mt-3 create-file px-4" type="submit"><i class="fas fa-upload me-1"></i> Upload</button>
                 </form>
             </div>
         </div>

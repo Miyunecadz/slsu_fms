@@ -39,9 +39,7 @@
                         <div class="dropdown">
                             <div class="btn btn-danger dropdown-toggle ms-1" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></div>
                             <ul class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Sign-out</a></li>
-                                <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                                <li><a class="dropdown-item" href="{{route('login')}}">Sign-out</a></li>
                             </ul>
                         </div>
                     </div>
@@ -126,7 +124,7 @@
                             <ul>
                                 @foreach ($files as $file)
                                 <li class="py-1 my-1">
-                                    <div class="border border-secondary p-3 rounded rounded d-flex justify-content-between align-items-center file" id="file">
+                                    <div class="border border-secondary p-3 rounded-5 d-flex justify-content-between align-items-center file" id="file">
                                         <a class="text-secondary" href="{{Storage::url($file)}}" download="{{basename($file)}}">{{basename($file)}}</a>
                                         <div class='float file-editDelete-menu'>
                                             <ul class="ps-0">

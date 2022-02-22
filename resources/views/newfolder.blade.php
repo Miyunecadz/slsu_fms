@@ -39,9 +39,7 @@
                         <div class="dropdown">
                             <div class="btn btn-danger dropdown-toggle ms-1" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></div>
                             <ul class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Sign-out</a></li>
-                                <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                                <li><a class="dropdown-item" href="{{route('login')}}">Sign-out</a></li>
                             </ul>
                         </div>
                     </div>
@@ -92,14 +90,14 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <form action="{{route('create.folder')}}" method="post" class="mt-3">
+                <form action="{{route('create.folder')}}" method="post" class="mt-3 px-3">
                     @csrf
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="folder_name">Enter folder name</label>
                         <input type="hidden" id="folder_name" name="dir" value="{{$dir ?? 'public/'}}">
-                        <input type="text" class="form-control mt-1 py-3" name="name" id="name" placeholder="Folder name">
+                        <input type="text" class="form-control mt-2 py-3" name="name" id="name" placeholder="Folder name">
                     </div>
-                    <button class="btn btn-primary mt-3" type="submit"><i class="fas fa-folder-plus me-1"></i> Create</button>
+                    <button class="btn btn-primary mt-3 px-4 create-folder" type="submit"><i class="fas fa-folder-plus me-1"></i> Create</button>
                 </form>
             </div>
         </div>

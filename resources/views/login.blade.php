@@ -39,20 +39,20 @@
                     <h3 class="text-center">Login User Credential</h3>
                     <form action="" class="mt-5">
                         <div class="form-group mt-1">
-                            <label for="">Enter username</label>
-                            <input type="text" class="form-control py-3" placeholder="Your username here ...">
+                            <label for="" class="">Enter username</label>
+                            <input type="text" class="form-control py-3 mt-2" placeholder="Your username here ...">
                         </div>
                         <div class="form-group mt-3">
-                            <label for="">Enter password</label>
-                            <input type="password" class="form-control py-3" placeholder="Your password here ...">
+                            <label for="" class="">Enter password</label>
+                            <input type="password" class="form-control py-3 mt-2" placeholder="Your password here ...">
                         </div>
                         <div class="mt-5" align="center">
-                            <button class="btn btn-primary py-2 px-3 login-btn"><i class="fas fa-pencil me-2"></i>LOGIN</button> 
+                            <button class="btn btn-primary py-2 px-4 login-btn"><i class="fas fa-pencil me-2"></i>LOGIN</button> 
                         </div>
                     </form>
                 </div>
             </div>
-            <p class="text-muted text-center mt-5 footer">SLSU-FMS @ CCSIT - 2022</p>
+            <p class="text-muted text-center mt-5 mb-1 footer">SLSU-FMS @ CCSIT - 2022</p>
             <p class="text-muted text-center footer">Developed By: CCSIT Dev Team</p>
         </div>
     </div>
