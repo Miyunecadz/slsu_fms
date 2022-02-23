@@ -75,4 +75,16 @@ class DashboardController extends Controller
 
         return $dirToFind;
     }
+
+    public function delete(Request $request)
+    {
+        Storage::deleteDirectory($request->dir);
+
+        $temp=explode("/",$request->dir);
+        array_pop($temp);
+        $newDir=implode("/",$temp);
+    
+
+        return redirect(route('dashboard', ['dir' => $newDir]));
+    }
 }
