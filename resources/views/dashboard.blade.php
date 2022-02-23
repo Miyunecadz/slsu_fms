@@ -97,8 +97,9 @@
                                         <a class="text-secondary" href="{{route('dashboard', ['dir' => $dir])}}">{{basename($dir)}}</a>
                                         <div class='float folder-editDelete-menu'>
                                             <ul class="ps-0">
-                                                <li><a href="" class="text-info"><i class="fas fa-edit"></i></a></li>
-                                                <li class="ms-2"><a href="" class="text-danger"><i class="fas fa-trash-alt"></i></a></li>
+                                                <li><a href="" class="text-muted"><i class="fas fa-edit"></i></a></li>
+                                                
+                                                <li class="ms-2"><a href="/delete?dir={{$dir}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this folder')"><i class="fas fa-trash-alt"></i></a></li>
                                                 <li class="ms-2"><a class="text-secondary folder-close" id="close"><i class="fas fa-times"></i></a></li>
                                             </ul>
                                         </div>
@@ -128,8 +129,8 @@
                                         <a class="text-secondary" href="{{Storage::url($file)}}" download="{{basename($file)}}">{{basename($file)}}</a>
                                         <div class='float file-editDelete-menu'>
                                             <ul class="ps-0">
-                                                <li><a href="" class="text-info"><i class="fas fa-edit"></i></a></li>
-                                                <li class="ms-2"><a href="" class="text-danger"><i class="fas fa-trash-alt"></i></a></li>
+                                                <li><a href="" class="text-muted"><i class="fas fa-edit"></i></a></li>
+                                                <li class="ms-2"><a href="" class="text-muted"><i class="fas fa-trash-alt"></i></a></li>
                                                 <li class="ms-2"><a class="text-secondary file-close" id="close"><i class="fas fa-times"></i></a></li>
                                             </ul>
                                         </div>
