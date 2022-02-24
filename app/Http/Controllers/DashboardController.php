@@ -83,7 +83,6 @@ class DashboardController extends Controller
         $temp=explode("/",$request->dir);
         array_pop($temp);
         $newDir=implode("/",$temp);
-    
 
         return redirect(route('dashboard', ['dir' => $newDir]));
     }
