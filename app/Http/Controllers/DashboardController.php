@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class DashboardController extends Controller
 {
     private $root = 'public/';
+    
     public function index(Request $request)
     {
         $dirToFind = $this->dirToFind($request);
@@ -75,15 +76,26 @@ class DashboardController extends Controller
 
         return $dirToFind;
     }
+    private function removeLastFolder($dir)
+    {
+        $temp=explode("/",$dir);
+        array_pop($temp);
+        return $newDir=implode("/",$temp);
 
+    }
     public function delete(Request $request)
     {
         Storage::deleteDirectory($request->dir);
+        $newDir=$this->removeLastFolder($request->dir);
 
-        $temp=explode("/",$request->dir);
-        array_pop($temp);
-        $newDir=implode("/",$temp);
-    
+        return redirect(route('dashboard', ['dir' => $newDir]));
+    }
+
+    public function update(Request $request)
+    {
+        $newDir=$this->removeLastFolder($request->dir);
+
+        rename(storage_path("/app/") . $request->dir, storage_path("/app/") . $newDir . "/" . $request->newFolderName);
 
         return redirect(route('dashboard', ['dir' => $newDir]));
     }
