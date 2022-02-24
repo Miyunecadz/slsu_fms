@@ -97,7 +97,7 @@
                                         <a class="text-secondary" href="{{route('dashboard', ['dir' => $dir])}}">{{basename($dir)}}</a>
                                         <div class='float folder-editDelete-menu'>
                                             <ul class="ps-0">
-                                                <li><a href="" class="text-muted"><i class="fas fa-edit"></i></a></li>
+                                                <li><a href="" data-dir="{{$dir}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
                                                 
                                                 <li class="ms-2"><a href="/delete?dir={{$dir}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this folder')"><i class="fas fa-trash-alt"></i></a></li>
                                                 <li class="ms-2"><a class="text-secondary folder-close" id="close"><i class="fas fa-times"></i></a></li>
@@ -154,10 +154,57 @@
             <li class="my-1 py-1"><a href="{{route('upload.file', ['dir' => request()->dir])}}" class="text-secondary"><i class="fas fa-upload me-2"></i>Upload file</a></li>
         </ul>
     </div>
+
+
+
+    {{-- Update folder modal --}}
+    <form action="/update" method="POST">
+        @csrf
+    <div class="modal fade" tabindex="-1" id="update-modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Rename Folder</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <input type="text" name="dir" id="update-modal-dir" hidden>
+                    <div class="mb-3">
+                      <label class="form-label">Folder name</label>
+                      <input type="text" class="form-control" name="newFolderName" id="input-new-folder-name" required>
+                    </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+
     
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('custom/long-press.js')}}"></script>
     <script>
+        var modal=document.getElementById("update-modal");
+        modal.addEventListener('shown.bs.modal',(e)=>{
+            var invoker = e.relatedTarget;
+            var dir=invoker.getAttribute('data-dir');
+            var input=document.getElementById("update-modal-dir");
+            input.value=dir;
+
+            var inputNewFolderName=document.getElementById("input-new-folder-name");
+
+            var prevFolderName=dir.split("/").pop();
+            inputNewFolderName.value=prevFolderName;
+            inputNewFolderName.focus();
+            inputNewFolderName.select();
+        })
+
+
         var btn = document.querySelector('.floating-icon');
         btn.addEventListener('click', () => {
             btn.classList.contains('show-floating-menu') ? btn.classList.remove('show-floating-menu') : btn.classList.add('show-floating-menu')

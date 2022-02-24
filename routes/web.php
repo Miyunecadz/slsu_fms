@@ -23,3 +23,5 @@ Route::post('/newfolder', [DashboardController::class, 'createFolder'])->name('c
 Route::get('/uploadFile', [DashboardController::class, 'uploadFile'])->name('upload.file');
 Route::post('/uploadFile', [DashboardController::class, 'upload']);
 Route::get('/delete', [DashboardController::class, 'delete']);
+Route::post('/update', [DashboardController::class, 'update']);
+
