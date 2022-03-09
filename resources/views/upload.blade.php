@@ -95,7 +95,10 @@
                     <div class="form-group mb-2">
                         <label for="file">Choose file from your directory</label>
                         <input type="hidden" name="dir" value="{{$dir}}">
-                        <input type="file" class="py-2 w-100 mt-3 mb-1" name="file" id="file" >
+                        <input type="file" class="py-2 w-100 mt-3 mb-1" name="file" id="file" onchange="fileValidation()">
+                        @error('file')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
                     </div>
                     <button class="btn btn-primary mt-3 create-file px-4" type="submit"><i class="fas fa-upload me-1"></i> Upload</button>
                 </form>
@@ -111,13 +114,27 @@
             <li class="my-1 py-1"><a href="{{route('upload.file', ['dir' => request()->dir])}}" class="text-secondary"><i class="fas fa-upload me-2"></i>Upload file</a></li>
         </ul>
     </div>
-    
+
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script>
         var btn = document.querySelector('.floating-icon');
         btn.addEventListener('click', () => {
             btn.classList.contains('show-floating-menu') ? btn.classList.remove('show-floating-menu') : btn.classList.add('show-floating-menu')
         })
+
+        fileValidation = () => {
+            const fi = document.getElementById('file');
+            // Check if any file is selected.
+            if (fi.files.length > 0) {
+
+                const fsize = fi.files.item(0).size;
+                const file = Math.round((fsize / 1024));
+                if (file >= 15360) {
+                    alert("File size is too big. Upload file size limit is only 15MB");
+                    fi.value = ''
+                }
+            }
+        }
     </script>
 </body>
 </html>
