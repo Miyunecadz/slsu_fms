@@ -93,6 +93,7 @@
                             <ul>
                                 @foreach ($dirs as $dir)
                                 <li class="py-1 my-1 folder-item-list">
+                                  
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center folder" id="folder">
                                         <a class="text-secondary" href="{{route('dashboard', ['dir' => $dir])}}">{{basename($dir)}}</a>
                                         <div class='float folder-editDelete-menu'>
@@ -104,6 +105,7 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    
                                 </li>
                                 @endforeach
                             </ul>
@@ -130,7 +132,7 @@
                                         <div class='float file-editDelete-menu'>
                                             <ul class="ps-0">
                                                 <li><a href="" class="text-muted"><i class="fas fa-edit"></i></a></li>
-                                                <li class="ms-2"><a href="" class="text-muted"><i class="fas fa-trash-alt"></i></a></li>
+                                                <li class="ms-2"><a href="/delete?file={{$file}}" onclick="return confirm('Are you sure you want delete this file?')" class="text-muted"><i class="fas fa-trash-alt"></i></a></li>
                                                 <li class="ms-2"><a class="text-secondary file-close" id="close"><i class="fas fa-times"></i></a></li>
                                             </ul>
                                         </div>
