@@ -13,7 +13,7 @@
     <div class="container-fluid px-0">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container my-0 border-0">
-                <a class="navbar-brand text-white ms-1" href="#">SLSU-FMS</a>
+                <a class="navbar-brand text-white ms-1" href="#">SLSU-MCMDS</a>
                 <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -31,7 +31,7 @@
                     </ul>
                 </div>
                 <span class="navbar-text">
-                    <div class="d-flex justify-content-start align-items-center">
+                    <div class="d-flex justify-content-start align-items-center invisible">
                         <div class="dropdown img-icon d-flex justify-content-center align-items-center">
                             <b>BA</b>
                         </div>

@@ -13,7 +13,7 @@
     <div class="container-fluid px-0">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container my-0 border-0">
-                <a class="navbar-brand text-white ms-1" href="#">SLSU-FMS</a>
+                <a class="navbar-brand text-white ms-1" href="#">SLSU-MCMDS</a>
                 <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -31,7 +31,7 @@
                     </ul>
                 </div>
                 <span class="navbar-text">
-                    <div class="d-flex justify-content-start align-items-center">
+                    <div class="d-flex justify-content-start align-items-center invisible">
                         <div class="dropdown img-icon d-flex justify-content-center align-items-center">
                             <b>BA</b>
                         </div>
@@ -66,15 +66,15 @@
         <div class="container pt-3 pb-1">
             <nav aria-label="breadcrumb mb-0">
                 <ol class="breadcrumb">
-                    <li><a href="/" class="me-1">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/" class="me-0">Dashboard</a></li>
                     @for ($x = 0 ; $x < count($datas['sections']) ; $x++)
                         @if ($datas['sections'][$x] != $datas['sections'][count($datas['sections']) - 1])
-                        <li class="breadcrumb-item ms-1">
-                            <a href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{$datas['sections'][$x]}}</a>
+                        <li class="breadcrumb-item">
+                            <a class="ps-0 ms-0" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{$datas['sections'][$x]}}</a>
                         </li>
                         @else
-                        <li class="breadcrumb-item ms-0 ps-0">
-                            <a class="ps-1" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{$datas['sections'][$x]}}</a>
+                        <li class="breadcrumb-item">
+                            <a class="ps-0 ms-0" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{$datas['sections'][$x]}}</a>
                         </li>
                         @endif
                     @endfor
@@ -114,7 +114,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid files">
+    <div class="container-fluid mb-5 pb-5 files">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-lg-6">
@@ -129,7 +129,6 @@
                                         <a class="text-secondary" href="{{Storage::url($file)}}" download="{{basename($file)}}">{{basename($file)}}</a>
                                         <div class='float file-editDelete-menu'>
                                             <ul class="ps-0">
-                                                <li><a href="" class="text-muted"><i class="fas fa-edit"></i></a></li>
                                                 <li class="ms-2"><a href="" class="text-muted"><i class="fas fa-trash-alt"></i></a></li>
                                                 <li class="ms-2"><a class="text-secondary file-close" id="close"><i class="fas fa-times"></i></a></li>
                                             </ul>

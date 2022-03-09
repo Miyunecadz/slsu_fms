@@ -87,15 +87,15 @@
     color: #302f2f !important;
 } 
 
-.breadcrumb li:last-child::before,
+/* .breadcrumb li:last-child::before,
 .breadcrumb li:last-child::after{
     display: none;
-} 
+}  */
 
-.breadcrumb li::after{
+/* .breadcrumb li::after{
     content: "/";
     font-weight: bold;
-} 
+}  */
 
 .breadcrumb li a, 
 .breadcrumb li a i,
@@ -129,7 +129,7 @@
 .file-lists ul li:nth-child(1) .file:before{
     content: "";
     position: absolute;
-    top: -0.5rem;
+    top: -0.8rem;
     left: -1.6rem;
     height: 45px;
     width: 25px;
@@ -153,20 +153,33 @@
 }
 
 @media  screen and (max-width: 409px) {
+    .folder-lists ul li:nth-child(1) .folder:before,
+    .file-lists ul li:nth-child(1) .file:before{
+        top: -0.8rem;
+        left: -1.7rem;
+        height: 40px;
+    }
+
     .folder-lists ul li:not(:nth-child(1)) .folder:before,
     .file-lists ul li:not(:nth-child(1)) .file:before{
-        top: -6rem;
-        height: 130px;
+        top: -4.8rem;
+        height: 105px;
+        left: -1.7rem;
+    }
+
+    .folder-lists ul li .folder a,
+    .file-lists ul li .file a{
+        font-size: 14px;
     }
 }
 
-@media  screen and (max-width: 409px) {
+/* @media  screen and (max-width: 409px) {
     .folder-lists ul li:not(:nth-child(1)) .folder:before,
     .file-lists ul li:not(:nth-child(1)) .file:before{
         top: -9rem;
         height: 190px;
     }
-}
+} */
 
 .folder-lists ul li div a,
 .file-lists ul li div a{
@@ -221,15 +234,15 @@
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
     background-color: #0165B9;
     text-align: center;
     color: #fff;
     transition: transform 0.3s ease;
     font-size: 1.5em;
-    padding: 0.95rem 0.95rem;
+    padding: 0.75rem 0.95rem;
     z-index: 1000;
 }
 

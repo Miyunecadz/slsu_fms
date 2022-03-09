@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 class DashboardController extends Controller
 {
     private $root = 'public/';
+    private $newFileName = '';
+    private $count = 1;
     
     public function index(Request $request)
     {
@@ -45,10 +48,48 @@ class DashboardController extends Controller
         return view('upload', ['dir' => $request->dir, 'datas'=>['sections' => $dir['sections'], 'urls' => $dir['urls']]]);
     }
 
+    public function checkFileExisted($dir, $file)
+    {
+        if(Storage::exists($dir.'/'.$file)){
+            $newFileName = explode('.', $file);
+            $cleanFile = "";
+
+            if(str_contains($newFileName[0], 'copy')){
+                $trimmedFileName = explode('copy', $newFileName[0]);
+                if($trimmedFileName[1] != ""){
+
+                    do{
+                        $cleanFile = $newFileName[0].' copy ('.$this->count.').'.$newFileName[1];
+                        $this->count++;
+                        $this->checkFileExisted($dir, $cleanFile);
+                    }
+                    while(str_contains($file, 'copy ('.$this->count.')'));
+
+                    $this->newFileName = $trimmedFileName[0].'copy ('.$this->count.').'.$newFileName[1];
+                    $this->checkFileExisted($dir, $this->newFileName);
+                }
+                else{
+                    $this->newFileName = $trimmedFileName[0].'copy (1).'.$newFileName[1];
+                    $this->checkFileExisted($dir, $this->newFileName);
+                }
+            }
+            else{
+                $this->newFileName = $newFileName[0].' copy.'.$newFileName[1];
+                $this->checkFileExisted($dir, $this->newFileName);
+            }
+        }
+        else{
+            $this->newFileName = $file;
+            return false;
+        }
+    }
+
     public function upload(Request $request)
     {
-        $request->file('file')->storeAs($request->dir, $request->file('file')->getClientOriginalName());
-        return redirect(route('dashboard', ['dir' => $request->dir]));
+        if(!$this->checkFileExisted($request->dir, $request->file('file')->getClientOriginalName())){
+            $request->file('file')->storeAs($request->dir, $this->newFileName);
+            return redirect(route('dashboard', ['dir' => $request->dir]));
+        }
     }
 
     public function sections($dirToFind)
@@ -60,7 +101,7 @@ class DashboardController extends Controller
         $currenValue = "";
         foreach ($sections as $section) {
 
-            array_push($urls, $currenValue . $section . "");
+            array_push($urls, $currenValue . $section . "/");
             $currenValue = $currenValue . $section . "/";
         }
 
@@ -76,6 +117,7 @@ class DashboardController extends Controller
 
         return $dirToFind;
     }
+
     private function removeLastFolder($dir)
     {
         $temp=explode("/",$dir);
