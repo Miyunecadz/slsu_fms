@@ -13,6 +13,7 @@ class DashboardController extends Controller
     private $newFileName = '';
     private $count = 1;
     
+
     public function index(Request $request)
     {
         $dirToFind = $this->dirToFind($request);
@@ -127,8 +128,18 @@ class DashboardController extends Controller
     }
     public function delete(Request $request)
     {
-        Storage::deleteDirectory($request->dir);
-        $newDir=$this->removeLastFolder($request->dir);
+        $dir="";
+
+        if($request->file){
+            $dir=$request->file;
+            Storage::delete($request->file);
+        }else{
+            $dir=$request->dir;
+            Storage::deleteDirectory($request->dir);
+        }
+    
+    
+        $newDir=$this->removeLastFolder($dir);
 
         return redirect(route('dashboard', ['dir' => $newDir]));
     }

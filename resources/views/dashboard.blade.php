@@ -93,6 +93,7 @@
                             <ul>
                                 @foreach ($dirs as $dir)
                                 <li class="py-1 my-1 folder-item-list">
+                                  
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center folder" id="folder">
                                         <a class="text-secondary" href="{{route('dashboard', ['dir' => $dir])}}">{{basename($dir)}}</a>
                                         <div class='float folder-editDelete-menu'>
@@ -104,6 +105,7 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    
                                 </li>
                                 @endforeach
                             </ul>
