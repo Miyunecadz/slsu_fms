@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class DashboardController extends Controller
 {
     private $root = 'public/';
-    
+
     public function index(Request $request)
     {
         $dirToFind = $this->dirToFind($request);
@@ -47,6 +47,9 @@ class DashboardController extends Controller
 
     public function upload(Request $request)
     {
+        $request->validate([
+            'file' => 'required'
+        ]);
         $request->file('file')->storeAs($request->dir, $request->file('file')->getClientOriginalName());
         return redirect(route('dashboard', ['dir' => $request->dir]));
     }
