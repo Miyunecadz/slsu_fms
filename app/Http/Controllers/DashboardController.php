@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
@@ -18,13 +19,21 @@ class DashboardController extends Controller
     {
         $dirToFind = $this->dirToFind($request);
         $dir = $this->sections($dirToFind);
-
-        $dirs = Storage::directories($dirToFind);
+        // dd($dirToFind);
+        $modulesDirectory=Str::contains($dirToFind,'/modules')?"$dirToFind":"$dirToFind/modules";
+        $submissionsDirectory=Str::contains($dirToFind,'/submissions')?"$dirToFind":"$dirToFind/submissions";
+        $modules = Storage::directories($modulesDirectory);
+        $submissions = Storage::directories($submissionsDirectory);
+        
         $files = Storage::files($dirToFind);
-        return view('dashboard', ['datas' => [
-            'sections' => $dir['sections'],
-            'urls' => $dir['urls']
-        ],  'dirs' => $dirs, 'files' => $files, 'submissions' => []]);
+        return view('dashboard', [
+            'datas' => [
+                'sections' => $dir['sections'],
+                'urls' => $dir['urls']
+             ], 
+            'modules' => $modules, 
+            'submissions' => $submissions
+        ]);
     }
 
     public function newFolder(Request $request)
@@ -36,8 +45,10 @@ class DashboardController extends Controller
     }
 
     public function createFolder(Request $request)
-    {
-        Storage::makeDirectory($request->dir . '/' . $request->name);
+    {   
+        // dd($request->dir);
+        
+        Storage::makeDirectory($request->dir. '/' . $request->name);
         return redirect(route('dashboard', ['dir' => $request->dir]));
     }
 

@@ -94,14 +94,19 @@
                     @csrf
                     <div class="form-group mb-2">
                         <label for="folder_name">Enter folder name</label>
+                        {{$dir}}
                         <input type="hidden" id="folder_name" name="dir" value="{{$dir ?? 'public/'}}">
                         <input type="text" class="form-control mt-2 py-3" name="name" id="name" placeholder="Folder name">
                     </div>
                     <div class="form-group mb-2 mt-3">
                         <label for="folder_name">Save folder to</label>
-                        <select name="" id="" class="form-select mt-2 py-3">
-                            <option value="" {{request()->folder == 'MODULES_LEARNING_MATERIALS' ? 'selected' : ''}}>Modules/Learning Materials</option>
-                            <option value="" {{request()->folder == 'SUBMISSIONS' ? 'selected' : ''}}>Submissions</option>
+                        <select name="type" id="" class="form-select mt-2 py-3">
+                            @if(Str::contains(request()->dir,'public/modules'))
+                            <option value="modules" {{request()->folder == 'MODULES_LEARNING_MATERIALS' ? 'selected' : ''}}>Modules/Learning Materials</option>
+                            @endif
+                            @if(Str::contains(request()->dir,'public/submissions'))
+                            <option value="submissions" {{request()->folder == 'SUBMISSIONS' ? 'selected' : ''}}>Submissions</option>
+                            @endif
                         </select>
                     </div>
                     <button class="btn btn-primary mt-3 px-4 create-folder" type="submit"><i class="fas fa-folder-plus me-1"></i> Create</button>

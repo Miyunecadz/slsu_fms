@@ -70,11 +70,11 @@
                     @for ($x = 0 ; $x < count($datas['sections']) ; $x++)
                         @if ($datas['sections'][$x] != $datas['sections'][count($datas['sections']) - 1])
                         <li class="breadcrumb-item">
-                            <a class="ps-0 ms-0" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{$datas['sections'][$x]}}</a>
+                            <a class="ps-0 ms-0" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{ucwords($datas['sections'][$x])}}</a>
                         </li>
                         @else
                         <li class="breadcrumb-item">
-                            <a class="ps-0 ms-0" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{$datas['sections'][$x]}}</a>
+                            <a class="ps-0 ms-0" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{ucwords($datas['sections'][$x])}}</a>
                         </li>
                         @endif
                     @endfor
@@ -82,30 +82,32 @@
             </nav>
         </div>
     </div>
+    @if(!Str::contains(request()->dir,'public/submissions'))
     <div class="container-fluid mt-3 folders">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-lg-8">
                     <div class="mobile mx-2">
                         <h5 class="ps-1 d-flex justify-content-between items-center">
-                            <span><i class="fas {{!empty($dirs) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Modules/Learning Materials</span>
+                            <span><i class="fas {{!empty($modules) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Modules/Learning Materials</span>
                             <span>
-                                <a href="{{route('newFolder', ['folder' => 'MODULES_LEARNING_MATERIALS'])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
+                                <a href="{{route('newFolder', ['folder' => 'MODULES_LEARNING_MATERIALS','dir'=>!isset(request()->dir) ? '/public/modules' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
                             </span>
                         </h5>
-                        @if(!empty($dirs))
+                       
+                        @if(!empty($modules))
                         <div class="folder-lists ms-2">
                             <ul>
-                                @foreach ($dirs as $dir)
+                                @foreach ($modules as $module)
                                 <li class="py-1 my-1 folder-item-list">
-                                  
+                                
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center folder" id="folder">
-                                        <a class="text-secondary" href="{{route('dashboard', ['dir' => $dir])}}"><i class="fas fa-folder p-1 me-1"></i>{{basename($dir)}}</a>
+                                        <a class="text-secondary" href="{{route('dashboard', ['dir' => $module])}}"><i class="fas fa-folder p-1"></i> - {{basename($module)}}</a>
                                         <div class='float folder-editDelete-menu'>
                                             <ul class="ps-0">
-                                                <li><a href="" data-dir="{{$dir}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
+                                                <li><a href="" data-dir="{{$module}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
                                                 
-                                                <li class="ms-2"><a href="/delete?dir={{$dir}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this folder')"><i class="fas fa-trash-alt"></i></a></li>
+                                                <li class="ms-2"><a href="/delete?dir={{$module}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this folder')"><i class="fas fa-trash-alt"></i></a></li>
                                                 <li class="ms-2"><a class="text-secondary folder-close" id="close"><i class="fas fa-times"></i></a></li>
                                             </ul>
                                         </div>
@@ -162,6 +164,9 @@
         </div>
     </div>
 
+    @endif
+
+    @if(!Str::contains(request()->dir,'public/modules'))
     <div class="container-fluid mt-4 folders">
         <div class="container">
             <div class="row">
@@ -170,11 +175,35 @@
                         <h5 class="ps-1 d-flex justify-content-between items-center">
                             <span><i class="fas {{!empty($submissions) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Submissions</span>
                             <span>
-                                <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS'])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
+                                <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS','dir'=>!isset(request()->dir) ? '/public/submissions' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
                             </span>
                             
                         </h5>
+                        @if(!empty($submissions))
+                        <div class="folder-lists ms-2">
+                            <ul>
+                                @foreach ($submissions as $submission)
+                                <li class="py-1 my-1 folder-item-list">
+                                  
+                                    <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center folder" id="folder">
+                                        <a class="text-secondary" href="{{route('dashboard', ['dir' => $submission])}}"><i class="fas fa-folder p-1"></i> - {{basename($submission)}}</a>
+                                        <div class='float folder-editDelete-menu'>
+                                            <ul class="ps-0">
+                                                <li><a href="" data-dir="{{$submission}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
+                                                
+                                                <li class="ms-2"><a href="/delete?dir={{$submission}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this folder')"><i class="fas fa-trash-alt"></i></a></li>
+                                                <li class="ms-2"><a class="text-secondary folder-close" id="close"><i class="fas fa-times"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @else
                         <p class="text-muted ms-5 mt-3">No folder added yet !</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -218,6 +247,7 @@
         </div>
     </div>
 
+    @endif
     <div class="shadow-sm d-block d-md-none floating-icon">
         <i class="fas fa-plus"></i>
     </div>
