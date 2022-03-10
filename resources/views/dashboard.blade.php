@@ -100,7 +100,7 @@
                                 <li class="py-1 my-1 folder-item-list">
                                   
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center folder" id="folder">
-                                        <a class="text-secondary" href="{{route('dashboard', ['dir' => $dir])}}">{{basename($dir)}}</a>
+                                        <a class="text-secondary" href="{{route('dashboard', ['dir' => $dir])}}"><i class="fas fa-folder p-1 me-1"></i>{{basename($dir)}}</a>
                                         <div class='float folder-editDelete-menu'>
                                             <ul class="ps-0">
                                                 <li><a href="" data-dir="{{$dir}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
@@ -115,12 +115,53 @@
                                 @endforeach
                             </ul>
                         </div>
+                        @else
+                        <p class="text-muted ms-5 mt-3">No folder added yet !</p>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="container-fluid mt-4 files">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8">
+                    <div class="mobile mx-2">
+                        @if(!empty($files))
+                        <h5 class="ps-1"><i class="fas fa-file-lines me-2 text-primary"></i>{{ substr(request()->dir, 7) }}/Files
+                        </h5>
+                        <div class="file-lists ms-2">
+                            <ul>
+                                @foreach ($files as $file)
+                                <li class="py-1 my-1 file-item-list">
+                                  
+                                    <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center file" id="file">
+                                        <a class="text-secondary text-truncate me-2" href="{{route('dashboard', ['file' => $file])}}" download="{{basename($file)}}">
+                                            <i class="fas fa-file"></i> - {{basename($file)}}
+                                        </a>
+                                        
+                                        <div class='float d-flex justify-content-start align-items-center file-editDelete-menu'>
+                                            <a href="{{route('dashboard', ['file' => $file])}}" download="{{basename($file)}}"><i class="fas fa-download me-1 text-secondary"></i></a>
+                                            <ul class="ps-0">
+                                                <li class="ms-2"><a href="/delete?file={{$file}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this file')"><i class="fas fa-trash-alt"></i></a></li>
+                                                <li class="ms-2"><a class="text-secondary file-close" id="close"><i class="fas fa-times"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid mt-4 folders">
         <div class="container">
             <div class="row">
@@ -131,12 +172,52 @@
                             <span>
                                 <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS'])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
                             </span>
+                            
                         </h5>
+                        <p class="text-muted ms-5 mt-3">No folder added yet !</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="container-fluid mt-4 files">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8">
+                    <div class="mobile mx-2">
+                        @if(!empty($files))
+                        <h5 class="ps-1">
+                            <span><i class="fas fa-file-lines me-2 text-primary"></i>Files</span>
+                        </h5>
+                        <div class="file-lists ms-2">
+                            <ul>
+                                @foreach ($files as $file)
+                                <li class="py-1 my-1 file-item-list">
+                                  
+                                    <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center file" id="file">
+                                        <a class="text-secondary text-truncate" href="{{route('dashboard', ['file' => $file])}}" download="{{basename($file)}}">
+                                            <i class="fas fa-file"></i> - {{basename($file)}}
+                                        </a>
+                                        <div class='float folder-editDelete-menu'>
+                                            <a href="{{route('dashboard', ['file' => $file])}}" download="{{basename($file)}}"><i class="fas fa-download me-1 text-secondary"></i></a>
+                                            <ul class="ps-0">
+                                                <li class="ms-2"><a href="/delete?file={{$file}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this file')"><i class="fas fa-trash-alt"></i></a></li>
+                                                <li class="ms-2"><a class="text-secondary file-close" id="close"><i class="fas fa-times"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="shadow-sm d-block d-md-none floating-icon">
         <i class="fas fa-plus"></i>
     </div>

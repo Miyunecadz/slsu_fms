@@ -20,11 +20,11 @@ class DashboardController extends Controller
         $dir = $this->sections($dirToFind);
 
         $dirs = Storage::directories($dirToFind);
-        // $files = Storage::files($dirToFind);
+        $files = Storage::files($dirToFind);
         return view('dashboard', ['datas' => [
             'sections' => $dir['sections'],
             'urls' => $dir['urls']
-        ],  'dirs' => $dirs, 'submissions' => []]);
+        ],  'dirs' => $dirs, 'files' => $files, 'submissions' => []]);
     }
 
     public function newFolder(Request $request)
