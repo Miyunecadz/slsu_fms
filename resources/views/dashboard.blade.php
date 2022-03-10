@@ -175,7 +175,7 @@
                         <h5 class="ps-1 d-flex justify-content-between items-center">
                             <span><i class="fas {{!empty($submissions) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Submissions</span>
                             <span>
-                                <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS','dir'=>!isset(request()->dir) ? '/public/submissions' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
+                                <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS','dir'=>!isset(request()->dir) ? 'public/submissions' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
                             </span>
                             
                         </h5>

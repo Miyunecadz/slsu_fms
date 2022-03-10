@@ -66,15 +66,16 @@
         <div class="container pt-3 pb-1">
             <nav aria-label="breadcrumb mb-0">
                 <ol class="breadcrumb">
-                    <li><a href="/" class="me-1 text-primary">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/" class="me-1 text-primary">Dashboard</a></li>
+                
                     @for ($x = 0 ; $x < count($datas['sections']) ; $x++)
                         @if ($datas['sections'][$x] != $datas['sections'][count($datas['sections']) - 1])
                         <li class="breadcrumb-item">
-                            <a class="ms-1" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{$datas['sections'][$x]}}</a>
+                            <a class="ms-1" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{ucwords($datas['sections'][$x])}}</a>
                         </li>
                         @else
                         <li class="breadcrumb-item">
-                            <a href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}" class="ms-1 text-primary">{{$datas['sections'][$x]}}</a>
+                            <a href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}" class="ms-1 text-primary">{{ucwords($datas['sections'][$x])}}</a>
                         </li>
                         @endif
                     @endfor
@@ -101,10 +102,10 @@
                     <div class="form-group mb-2 mt-3">
                         <label for="folder_name">Save folder to</label>
                         <select name="type" id="" class="form-select mt-2 py-3">
-                            @if(Str::contains(request()->dir,'public/modules'))
+                            @if(Str::contains(request()->dir,'public/modules') || !isset(request()->dir) )
                             <option value="modules" {{request()->folder == 'MODULES_LEARNING_MATERIALS' ? 'selected' : ''}}>Modules/Learning Materials</option>
                             @endif
-                            @if(Str::contains(request()->dir,'public/submissions'))
+                            @if(Str::contains(request()->dir,'public/submissions') || !isset(request()->dir) )
                             <option value="submissions" {{request()->folder == 'SUBMISSIONS' ? 'selected' : ''}}>Submissions</option>
                             @endif
                         </select>
