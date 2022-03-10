@@ -19,7 +19,6 @@ class DashboardController extends Controller
     {
         $dirToFind = $this->dirToFind($request);
         $dir = $this->sections($dirToFind);
-        // dd($dirToFind);
         $modulesDirectory=Str::contains($dirToFind,'/modules')?"$dirToFind":"$dirToFind/modules";
         $submissionsDirectory=Str::contains($dirToFind,'/submissions')?"$dirToFind":"$dirToFind/submissions";
         $modules = Storage::directories($modulesDirectory);
@@ -32,7 +31,8 @@ class DashboardController extends Controller
                 'urls' => $dir['urls']
              ], 
             'modules' => $modules, 
-            'submissions' => $submissions
+            'submissions' => $submissions,
+            'files'=>$files
         ]);
     }
 
@@ -46,8 +46,7 @@ class DashboardController extends Controller
 
     public function createFolder(Request $request)
     {   
-        // dd($request->dir);
-        
+    
         Storage::makeDirectory($request->dir. '/' . $request->name);
         return redirect(route('dashboard', ['dir' => $request->dir]));
     }

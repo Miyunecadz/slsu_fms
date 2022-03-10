@@ -132,7 +132,7 @@
                 <div class="col-md-10 col-lg-8">
                     <div class="mobile mx-2">
                         @if(!empty($files))
-                        <h5 class="ps-1"><i class="fas fa-file-lines me-2 text-primary"></i>{{ substr(request()->dir, 7) }}/Files
+                        <h5 class="ps-1"><i class="fas fa-file-lines me-2 text-primary"></i>Files
                         </h5>
                         <div class="file-lists ms-2">
                             <ul>
