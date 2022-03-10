@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>SLSU-MCMDS</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('custom/style.css')}}">
     <link rel="stylesheet" href="{{asset('fontawesome/css/all.min.css')}}">
@@ -85,10 +85,15 @@
     <div class="container-fluid mt-3 folders">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-lg-6">
+                <div class="col-md-10 col-lg-8">
                     <div class="mobile mx-2">
+                        <h5 class="ps-1 d-flex justify-content-between items-center">
+                            <span><i class="fas {{!empty($dirs) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Modules/Learning Materials</span>
+                            <span>
+                                <a href="{{route('newFolder', ['folder' => 'MODULES_LEARNING_MATERIALS'])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
+                            </span>
+                        </h5>
                         @if(!empty($dirs))
-                        <h5 class="ps-1"><i class="fas fa-folder-open me-2 text-warning"></i>Folders</h5>
                         <div class="folder-lists ms-2">
                             <ul>
                                 @foreach ($dirs as $dir)
@@ -116,31 +121,17 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid mb-5 pb-5 files">
+    <div class="container-fluid mt-4 folders">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-lg-6">
-                    <div class="mobile mx-2 {{!empty($files) ? 'mt-3' : ''}}">
-                        @if(!empty($files))
-                        <h5 class="ps-1 text-dark"><i class="fas fa-file-invoice me-2 text-primary"></i>Files</h5>
-                        <div class="file-lists ms-1">
-                            <ul>
-                                @foreach ($files as $file)
-                                <li class="py-1 my-1">
-                                    <div class="border border-secondary p-3 rounded-5 d-flex justify-content-between align-items-center file" id="file">
-                                        <a class="text-secondary" href="{{Storage::url($file)}}" download="{{basename($file)}}">{{basename($file)}}</a>
-                                        <div class='float file-editDelete-menu'>
-                                            <ul class="ps-0">
-                                                <li class="ms-2"><a href="" class="text-muted"><i class="fas fa-trash-alt"></i></a></li>
-                                                <li class="ms-2"><a class="text-secondary file-close" id="close"><i class="fas fa-times"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
+                <div class="col-md-10 col-lg-8">
+                    <div class="mobile mx-2">
+                        <h5 class="ps-1 d-flex justify-content-between items-center">
+                            <span><i class="fas {{!empty($submissions) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Submissions</span>
+                            <span>
+                                <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS'])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
+                            </span>
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -161,27 +152,27 @@
     {{-- Update folder modal --}}
     <form action="/update" method="POST">
         @csrf
-    <div class="modal fade" tabindex="-1" id="update-modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Rename Folder</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                    <input type="text" name="dir" id="update-modal-dir" hidden>
-                    <div class="mb-3">
-                      <label class="form-label">Folder name</label>
-                      <input type="text" class="form-control" name="newFolderName" id="input-new-folder-name" required>
+        <div class="modal fade" tabindex="-1" id="update-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Rename Folder</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body">
+                        <input type="text" name="dir" id="update-modal-dir" hidden>
+                        <div class="mb-3">
+                            <label class="form-label">Folder name</label>
+                            <input type="text" class="form-control" name="newFolderName" id="input-new-folder-name" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-          </div>
         </div>
-      </div>
     </form>
 
 

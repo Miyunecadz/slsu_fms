@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>SLSU-MCMDS</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('custom/style.css')}}">
     <link rel="stylesheet" href="{{asset('fontawesome/css/all.min.css')}}">
@@ -96,6 +96,13 @@
                         <label for="folder_name">Enter folder name</label>
                         <input type="hidden" id="folder_name" name="dir" value="{{$dir ?? 'public/'}}">
                         <input type="text" class="form-control mt-2 py-3" name="name" id="name" placeholder="Folder name">
+                    </div>
+                    <div class="form-group mb-2 mt-3">
+                        <label for="folder_name">Save folder to</label>
+                        <select name="" id="" class="form-select mt-2 py-3">
+                            <option value="" {{request()->folder == 'MODULES_LEARNING_MATERIALS' ? 'selected' : ''}}>Modules/Learning Materials</option>
+                            <option value="" {{request()->folder == 'SUBMISSIONS' ? 'selected' : ''}}>Submissions</option>
+                        </select>
                     </div>
                     <button class="btn btn-primary mt-3 px-4 create-folder" type="submit"><i class="fas fa-folder-plus me-1"></i> Create</button>
                 </form>
