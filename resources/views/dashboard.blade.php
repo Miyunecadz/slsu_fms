@@ -132,7 +132,12 @@
                 <div class="col-md-10 col-lg-8">
                     <div class="mobile mx-2">
                         @if(!empty($files))
+<<<<<<< HEAD
                         <h5 class="ps-1"><i class="fas fa-file-lines me-2 text-primary"></i>Files</h5>
+=======
+                        <h5 class="ps-1"><i class="fas fa-file-lines me-2 text-primary"></i>Files
+                        </h5>
+>>>>>>> af8f36ac692a8eb28eafdd18522685336cacd171
                         <div class="file-lists ms-2">
                             <ul>
                                 @foreach ($files as $file)
@@ -174,7 +179,7 @@
                         <h5 class="ps-1 d-flex justify-content-between items-center">
                             <span><i class="fas {{!empty($submissions) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Submissions</span>
                             <span>
-                                <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS','dir'=>!isset(request()->dir) ? '/public/submissions' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
+                                <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS','dir'=>!isset(request()->dir) ? '  public/submissions' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
                             </span>
                             
                         </h5>

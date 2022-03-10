@@ -19,12 +19,11 @@ class DashboardController extends Controller
     {
         $dirToFind = $this->dirToFind($request);
         $dir = $this->sections($dirToFind);
-        // dd($dirToFind);
         $modulesDirectory=Str::contains($dirToFind,'/modules')?"$dirToFind":"$dirToFind/modules";
         $submissionsDirectory=Str::contains($dirToFind,'/submissions')?"$dirToFind":"$dirToFind/submissions";
         $modules = Storage::directories($modulesDirectory);
         $submissions = Storage::directories($submissionsDirectory);
-        
+        // array_shift($dir['sections']);
         $files = Storage::files($dirToFind);
         return view('dashboard', [
             'datas' => [
@@ -32,7 +31,8 @@ class DashboardController extends Controller
                 'urls' => $dir['urls']
              ], 
             'modules' => $modules, 
-            'submissions' => $submissions
+            'submissions' => $submissions,
+            'files'=>$files
         ]);
     }
 
@@ -40,20 +40,26 @@ class DashboardController extends Controller
     {
         $dirToFind = $this->dirToFind($request);
         $dir = $this->sections($dirToFind);
-
-        return view('newfolder', ['dir' => $request->dir, 'datas'=>['sections' => $dir['sections'], 'urls' => $dir['urls']]]);
+        array_shift($dir['sections']);
+        return view('newfolder', ['dir' => $request->dir, 
+            'datas'=>[
+                'sections' => $dir['sections'],
+                'urls' => $dir['urls']
+             ]
+        ]);
     }
 
     public function createFolder(Request $request)
     {   
-        // dd($request->dir);
-        
-        Storage::makeDirectory($request->dir. '/' . $request->name);
-        return redirect(route('dashboard', ['dir' => $request->dir]));
+
+        $directory=$request->dir=="public/"?$request->dir . $request->type : $request->dir;
+        Storage::makeDirectory($directory. '/' . $request->name);
+        return redirect(route('dashboard', ['dir' => $directory]));
     }
 
     public function uploadFile(Request $request)
     {
+        
         $dirToFind = $this->dirToFind($request);
         $dir = $this->sections($dirToFind);
 
@@ -98,6 +104,12 @@ class DashboardController extends Controller
 
     public function upload(Request $request)
     {
+        if(is_null($request->dir)){
+            return back()->with([
+                'upload_error'=>'You are not allowed to upload files in the root directory!'
+            ]);
+        }
+        
         if(!$this->checkFileExisted($request->dir, $request->file('file')->getClientOriginalName())){
             $request->file('file')->storeAs($request->dir, $this->newFileName);
             return redirect(route('dashboard', ['dir' => $request->dir]));

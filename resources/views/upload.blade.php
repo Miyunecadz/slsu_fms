@@ -66,15 +66,15 @@
         <div class="container pt-3 pb-1">
             <nav aria-label="breadcrumb mb-0">
                 <ol class="breadcrumb">
-                    <li><a href="/" class="me-1">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/" class="me-1">Dashboard</a></li>
                     @for ($x = 0 ; $x < count($datas['sections']) ; $x++)
                         @if ($datas['sections'][$x] != $datas['sections'][count($datas['sections']) - 1])
                         <li class="breadcrumb-item">
-                            <a class="ms-1" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{$datas['sections'][$x]}}</a>
+                            <a class="ms-1" href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}">{{ucwords($datas['sections'][$x])}}</a>
                         </li>
                         @else
                         <li class="breadcrumb-item">
-                            <a href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}" class="ms-1 text-primary">{{$datas['sections'][$x]}}</a>
+                            <a href="{{route('dashboard', ['dir' => 'public/' .$datas['urls'][$x]])}}" class="ms-1 text-primary">{{ucwords($datas['sections'][$x])}}</a>
                         </li>
                         @endif
                     @endfor
@@ -88,6 +88,12 @@
                 <h3 class="mt-3 text-dark"><i class="fas fa-file-invoice me-2 text-primary"></i>Upload File</h3>
             </div>
         </div>
+        @if(!is_null(session('upload_error')))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Warning!</strong> {{session('upload_error')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="row">
             <div class="col-md-6">
                 <form action="{{route('upload.file')}}" method="post" enctype="multipart/form-data" class="mt-3 px-3">
