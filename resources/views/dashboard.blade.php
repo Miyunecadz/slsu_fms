@@ -22,24 +22,30 @@
                         <li class="nav-item active">
                             <a class="nav-link text-light" href="{{route('dashboard')}}"><i class="fas fa-home me-1"></i> Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="{{route('newFolder', ['dir' => request()->dir])}}"><i class="fas fa-folder me-1"></i> New Folder</a>
-                        </li>
+                        @if (session('isTeacher'))
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="{{route('newFolder', ['dir' => request()->dir])}}"><i class="fas fa-folder me-1"></i> New Folder</a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link text-light" href="{{route('upload.file', ['dir' => request()->dir])}}"><i class="fas fa-upload me-1"></i> Upload File</a>
                         </li>
                     </ul>
                 </div>
                 <span class="navbar-text">
-                    <div class="d-flex justify-content-start align-items-center invisible">
-                        <div class="dropdown img-icon d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-start align-items-center">
+                        <div class="dropdown img-icon d-flex justify-content-center align-items-center invisible">
                             <b>BA</b>
                         </div>
-                        <h6 class="d-none d-md-block text-white mt-1 ms-2">Benigno E. Ambus Jr.</h6>
+                        <h6 class="d-none d-md-block text-white mt-1 ms-2">Profile</h6>
                         <div class="dropdown">
                             <div class="btn btn-danger dropdown-toggle ms-1" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></div>
                             <ul class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="{{route('login')}}">Sign-out</a></li>
+                                @if (session('isTeacher'))
+                                    <li><a class="dropdown-item" href="{{route('logout.teacher')}}">Sign-out</a></li>
+                                @else
+                                    <li><a class="dropdown-item" href="{{route('login')}}">Switch to Teacher</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -53,15 +59,20 @@
                 <div class="py-1 home w-100 active text-center mx-2">
                     <a href="{{route('dashboard')}}"><i class="fas fa-home d-block pb-1 mt-1"></i><span>Home</span></a>
                 </div>
-                <div class="py-1 new_folder w-100 text-center mx-2">
-                    <a href="{{route('newFolder', ['dir' => request()->dir])}}"><i class="fas fa-folder d-block pb-1 mt-1"></i><span>New Folder</span></a>
-                </div>
+
+                @if (session('isTeacher'))
+                    <div class="py-1 new_folder w-100 text-center mx-2">
+                        <a href="{{route('newFolder', ['dir' => request()->dir])}}"><i class="fas fa-folder d-block pb-1 mt-1"></i><span>New Folder</span></a>
+                    </div>
+                    @endif
+
                 <div class="py-1 upload-file w-100 text-center mx-2">
                     <a href="{{route('upload.file', ['dir' => request()->dir])}}"><span><i class="fas fa-upload d-block pb-1 mt-1"></i>Upload File</span></a>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="container-fluid bg-light shadow-sm">
         <div class="container pt-3 pb-1">
             <nav aria-label="breadcrumb mb-0">
@@ -90,29 +101,33 @@
                     <div class="mobile mx-2">
                         <h5 class="ps-1 d-flex justify-content-between items-center">
                             <span><i class="fas {{!empty($modules) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Modules/Learning Materials</span>
-                            <span>
-                                <a href="{{route('newFolder', ['folder' => 'MODULES_LEARNING_MATERIALS','dir'=>!isset(request()->dir) ? '/public/modules' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
-                            </span>
+                            @if (session('isTeacher'))
+                                <span>
+                                    <a href="{{route('newFolder', ['folder' => 'MODULES_LEARNING_MATERIALS','dir'=>!isset(request()->dir) ? '/public/modules' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
+                                </span>
+                            @endif
                         </h5>
-                       
+
                         @if(!empty($modules))
                         <div class="folder-lists ms-2">
                             <ul>
                                 @foreach ($modules as $module)
                                 <li class="py-1 my-1 folder-item-list">
-                                
+
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center folder" id="folder">
                                         <a class="text-secondary" href="{{route('dashboard', ['dir' => $module])}}"><i class="fas fa-folder p-1"></i> - {{basename($module)}}</a>
-                                        <div class='float folder-editDelete-menu'>
-                                            <ul class="ps-0">
-                                                <li><a href="" data-dir="{{$module}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
-                                                
-                                                <li class="ms-2"><a href="/delete?dir={{$module}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this folder')"><i class="fas fa-trash-alt"></i></a></li>
-                                                <li class="ms-2"><a class="text-secondary folder-close" id="close"><i class="fas fa-times"></i></a></li>
-                                            </ul>
-                                        </div>
+                                        @if (session('isTeacher'))
+                                            <div class='float folder-editDelete-menu'>
+                                                <ul class="ps-0">
+                                                    <li><a href="" data-dir="{{$module}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
+
+                                                    <li class="ms-2"><a href="/delete?dir={{$module}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this folder')"><i class="fas fa-trash-alt"></i></a></li>
+                                                    <li class="ms-2"><a class="text-secondary folder-close" id="close"><i class="fas fa-times"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        @endif
                                     </div>
-                                    
+
                                 </li>
                                 @endforeach
                             </ul>
@@ -138,21 +153,25 @@
                             <ul>
                                 @foreach ($files as $file)
                                 <li class="py-1 my-1 file-item-list">
-                                  
+
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center file" id="file">
                                         <a class="text-secondary text-truncate me-2" href="{{route('dashboard', ['file' => $file])}}" download="{{basename($file)}}">
                                             <i class="fas fa-file"></i> - {{basename($file)}}
                                         </a>
-                                        
+
                                         <div class='float d-flex justify-content-start align-items-center file-editDelete-menu'>
                                             <a href="{{route('dashboard', ['file' => $file])}}" download="{{basename($file)}}"><i class="fas fa-download me-1 text-secondary"></i></a>
-                                            <ul class="ps-0">
-                                                <li class="ms-2"><a href="/delete?file={{$file}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this file')"><i class="fas fa-trash-alt"></i></a></li>
-                                                <li class="ms-2"><a class="text-secondary file-close" id="close"><i class="fas fa-times"></i></a></li>
-                                            </ul>
+
+                                            @if (session('isTeacher'))
+                                                <ul class="ps-0">
+                                                    <li class="ms-2"><a href="/delete?file={{$file}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this file')"><i class="fas fa-trash-alt"></i></a></li>
+                                                    <li class="ms-2"><a class="text-secondary file-close" id="close"><i class="fas fa-times"></i></a></li>
+                                                </ul>
+                                            @endif
+
                                         </div>
                                     </div>
-                                    
+
                                 </li>
                                 @endforeach
                             </ul>
@@ -174,29 +193,31 @@
                     <div class="mobile mx-2">
                         <h5 class="ps-1 d-flex justify-content-between items-center">
                             <span><i class="fas {{!empty($submissions) ? 'fa-folder-open' : 'fa-folder' }} me-2 text-warning"></i>Submissions</span>
-                            <span>
-                                <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS','dir'=>!isset(request()->dir) ? '  public/submissions' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
-                            </span>
-                            
+                            @if (session('isTeacher'))
+                                <span>
+                                    <a href="{{route('newFolder', ['folder' => 'SUBMISSIONS','dir'=>!isset(request()->dir) ? '  public/submissions' : request()->dir ])}}"><i class="fas fa-folder-plus me-2 text-primary"></i></a>
+                                </span>
+                            @endif
+
                         </h5>
                         @if(!empty($submissions))
                         <div class="folder-lists ms-2">
                             <ul>
                                 @foreach ($submissions as $submission)
                                 <li class="py-1 my-1 folder-item-list">
-                                  
+
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center folder" id="folder">
                                         <a class="text-secondary" href="{{route('dashboard', ['dir' => $submission])}}"><i class="fas fa-folder p-1"></i> - {{basename($submission)}}</a>
                                         <div class='float folder-editDelete-menu'>
                                             <ul class="ps-0">
                                                 <li><a href="" data-dir="{{$submission}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
-                                                
+
                                                 <li class="ms-2"><a href="/delete?dir={{$submission}}" class="text-muted"  onclick="return confirm('Are you sure you want delete this folder')"><i class="fas fa-trash-alt"></i></a></li>
                                                 <li class="ms-2"><a class="text-secondary folder-close" id="close"><i class="fas fa-times"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
-                                    
+
                                 </li>
                                 @endforeach
                             </ul>
@@ -222,7 +243,7 @@
                             <ul>
                                 @foreach ($files as $file)
                                 <li class="py-1 my-1 file-item-list">
-                                  
+
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center file" id="file">
                                         <a class="text-secondary text-truncate" href="{{route('dashboard', ['file' => $file])}}" download="{{basename($file)}}">
                                             <i class="fas fa-file"></i> - {{basename($file)}}
@@ -235,7 +256,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    
+
                                 </li>
                                 @endforeach
                             </ul>
@@ -288,7 +309,7 @@
 
 
 
-    
+
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('custom/long-press.js')}}"></script>
     <script>
@@ -327,17 +348,17 @@
                 listItem.addEventListener('long-press', function (e) {
                     var _this = this;
                     delay = setTimeout(check, longpress);
-                
+
                     function check() {
                         _this.classList.add('is-selected');
                     }
-                
+
                 }, true);
 
                 listItem.addEventListener('mouseup', function (e) {
                     clearTimeout(delay);
                 });
-                
+
                 listItem.addEventListener('mouseout', function (e) {
                     (delay);
                 });
@@ -359,17 +380,17 @@
                 listItem.addEventListener('long-press', function (e) {
                     var _this = this;
                     delay = setTimeout(check, longpress);
-                
+
                     function check() {
                         _this.classList.add('is-selected');
                     }
-                
+
                 }, true);
 
                 listItem.addEventListener('mouseup', function (e) {
                     clearTimeout(delay);
                 });
-                
+
                 listItem.addEventListener('mouseout', function (e) {
                     (delay);
                 });
@@ -384,14 +405,14 @@
 
             for (var i = 0, j = closeBtn.length; i < j; i++) {
                 close = closeBtn[i];
-            
+
                 close.addEventListener('click', function () {
                     document.querySelectorAll('.folder').forEach((item) => {
                         if(item.classList.contains('is-selected')){
                             item.classList.remove('is-selected')
                         }
                     })
-                    
+
                 }, true);
             }
 
@@ -411,7 +432,7 @@
                             item.classList.remove('is-selected')
                         }
                     })
-                    
+
                 }, true);
             }
 

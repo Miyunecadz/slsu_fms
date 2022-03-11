@@ -37,17 +37,17 @@
                 <h3 class="text-center">File Management System</h3> -->
                 <div class="py-4 px-3 mt-3">
                     <h3 class="text-center">Login User Credential</h3>
-                    <form action="" class="mt-5">
-                        <div class="form-group mt-1">
-                            <label for="" class="">Enter username</label>
-                            <input type="text" class="form-control py-3 mt-2" placeholder="Your username here ...">
-                        </div>
+                    <form action="{{route('authorize.teacher')}}" method="POST" class="mt-5">
+                        @csrf
                         <div class="form-group mt-3">
-                            <label for="" class="">Enter password</label>
-                            <input type="password" class="form-control py-3 mt-2" placeholder="Your password here ...">
+                            <label for="password" class="">Enter password</label>
+                            <input type="password" id="password" name="password" class="form-control py-3 mt-2" placeholder="Enter the master key...">
                         </div>
+                        @error('password')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
                         <div class="mt-5" align="center">
-                            <button class="btn btn-primary py-2 px-4 login-btn"><i class="fas fa-pencil me-2"></i>LOGIN</button> 
+                            <button class="btn btn-primary py-2 px-4 login-btn"><i class="fas fa-pencil me-2"></i>Authorize</button>
                         </div>
                     </form>
                 </div>
@@ -56,7 +56,7 @@
             <p class="text-muted text-center footer">Developed By: CCSIT Dev Team</p>
         </div>
     </div>
-    
+
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
 </body>
 </html>
