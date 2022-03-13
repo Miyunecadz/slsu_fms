@@ -132,12 +132,7 @@
                 <div class="col-md-10 col-lg-8">
                     <div class="mobile mx-2">
                         @if(!empty($files))
-<<<<<<< HEAD
                         <h5 class="ps-1"><i class="fas fa-file-lines me-2 text-primary"></i>Files</h5>
-=======
-                        <h5 class="ps-1"><i class="fas fa-file-lines me-2 text-primary"></i>Files
-                        </h5>
->>>>>>> af8f36ac692a8eb28eafdd18522685336cacd171
                         <div class="file-lists ms-2">
                             <ul>
                                 @foreach ($files as $file)
@@ -190,7 +185,7 @@
                                 <li class="py-1 my-1 folder-item-list">
                                   
                                     <div class="border border-secondary p-3 rounded d-flex justify-content-between align-items-center folder" id="folder">
-                                        <a class="text-secondary text-truncate" href="{{route('dashboard', ['dir' => $submission])}}"><i class="fas fa-folder p-1"></i> - {{basename($submission)}}</a>
+                                        <a class="text-secondary text-truncate" href="{{route('dashboard', ['dir' => $submission])}}"><i class="fas fa-folder p-1"></i> {{basename($submission)}}</a>
                                         <div class='float folder-editDelete-menu'>
                                             <ul class="ps-0">
                                                 <li><a href="" data-dir="{{$submission}}" class="text-muted" data-bs-toggle="modal" data-bs-target="#update-modal"><i class="fas fa-edit"></i></a></li>
